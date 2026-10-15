@@ -6,4 +6,4 @@ output/*
 !output/README.md
 data/my_*.csv
 !data/my_input_template.csv
-scripts/run_my_*.R
+examples/run_my_*.R

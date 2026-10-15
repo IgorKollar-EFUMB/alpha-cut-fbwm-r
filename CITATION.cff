@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this software, please cite the archived software release and the methodological article for this method."
 title: "Alpha-cut FBWM in R"
 type: software
-version: 0.3.0-rc.3
+version: 0.3.1
 authors:
   - family-names: "Bruteničová"
     given-names: "Michaela"
@@ -29,4 +29,4 @@ abstract: >-
   Standalone Alpha-cut FBWM in R with explicit positive triangular inputs,
   asymmetric and degenerate comparisons, interval weights and
   input-dependent alpha-discretization bounds.
-date-released: 2026-10-14
+date-released: 2026-10-15

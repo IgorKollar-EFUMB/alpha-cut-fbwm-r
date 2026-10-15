@@ -57,7 +57,7 @@ stopifnot(vy$best_worst_adjustment>0,vy$data$others_to_worst_modal[1]==6,
 expect_error(validate_acfbwm_input(y,"B","W",input_tolerance=0))
 
 check_result <- function(r) {
-  stopifnot(inherits(r,"acfbwm_result"),r$model_version=="0.3.0-rc.3",
+  stopifnot(inherits(r,"acfbwm_result"),r$model_version=="0.3.1",
     !"input_consistency" %in% names(r),!"scale_supports_disjoint" %in% names(r),
     abs(sum(r$weights$normalized_weight)-1)<1e-8,
     all(is.finite(r$weights$normalized_weight)),
@@ -159,5 +159,5 @@ unlink(out,recursive=TRUE)
   stopifnot(all(c("epsilon_lower_bound", "epsilon_search_gap",
     "epsilon_tolerance_met", "epsilon_search_status") %in% names(default_result)))
 
-  cat("All tests passed for release 0.3.0-rc.3.\n")
+  cat("All tests passed for release 0.3.1.\n")
 })

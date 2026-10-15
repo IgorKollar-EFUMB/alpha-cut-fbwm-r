@@ -150,7 +150,7 @@ solve_acfbwm <- function(
     eta_star = eta_result$eta_star,
     eta_star_alpha = eta_result$eta_star_alpha,
     eta_star_relation = eta_result$eta_star_relation,
-    model_version = "0.3.0-rc.3",
+    model_version = "0.3.1",
     comparison_data = .acfbwm_comparison_table(validated, comparison_data),
     best_worst_adjustment = validated$best_worst_adjustment,
     best_criterion = validated$best_criterion,

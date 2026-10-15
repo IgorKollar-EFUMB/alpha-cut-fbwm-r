@@ -3,7 +3,7 @@ input_path <- "data/my_input_template.csv"
 output_dir <- "output/my_analysis"
 best <- "C1"
 worst <- "C5"
-k <- 17L
+k <- 129L
 files <- file.path("R",c("validate_acfbwm_input.R","solve_acfbwm.R","export_acfbwm_result.R"))
 if (!all(file.exists(files))) stop("Set the working directory to the repository root.")
 if (!requireNamespace("highs",quietly=TRUE)) stop("Install highs: install.packages('highs')")

@@ -18,6 +18,6 @@ jobs:
         run: Rscript tests/run_tests.R
       - name: User workflows
         run: |
-          Rscript scripts/example.R
-          Rscript scripts/run_own_data.R
-          Rscript scripts/article.R
+          Rscript examples/run_acfbwm_example.R
+          Rscript examples/run_own_data.R
+          Rscript examples/article.R
