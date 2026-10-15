@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the archived software release and the methodological article for this method."
+title: "Alpha-cut FBWM in R"
+type: software
+version: 0.3.0-rc.3
+authors:
+  - family-names: "Bruteničová"
+    given-names: "Michaela"
+    orcid: "https://orcid.org/0000-0003-0208-6816"
+    affiliation: "Matej Bel University in Banská Bystrica, Slovakia"
+  - family-names: "Hužvár"
+    given-names: "Miroslav"
+    orcid: "https://orcid.org/0000-0001-9797-5602"
+    affiliation: "Matej Bel University in Banská Bystrica, Slovakia"
+  - family-names: "Kollár"
+    given-names: "Igor"
+    orcid: "https://orcid.org/0000-0003-4734-812X"
+    affiliation: "Matej Bel University in Banská Bystrica, Slovakia"
+  - family-names: "Špirková"
+    given-names: "Jana"
+    orcid: "https://orcid.org/0000-0001-5864-9353"
+    affiliation: "Matej Bel University in Banská Bystrica, Slovakia"
+license: MIT
+keywords:
+  - Best-Worst Method
+  - linear programming
+  - R
+abstract: >-
+  Standalone Alpha-cut FBWM in R with explicit positive triangular inputs,
+  asymmetric and degenerate comparisons, interval weights and
+  input-dependent alpha-discretization bounds.
+date-released: 2026-10-14

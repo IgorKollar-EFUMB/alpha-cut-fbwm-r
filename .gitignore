@@ -1,0 +1,9 @@
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+output/*
+!output/README.md
+data/my_*.csv
+!data/my_input_template.csv
+scripts/run_my_*.R

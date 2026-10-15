@@ -1,0 +1,10 @@
+criterion,display_order,best_to_others_lower,best_to_others_modal,best_to_others_upper,others_to_worst_lower,others_to_worst_modal,others_to_worst_upper
+I1,1,1.0,1.0,1.0,9.0,9.0,9.0
+I2,2,1.6,2.0,2.4,7.6,8.0,8.4
+I3,6,5.6,6.0,6.4,3.6,4.0,4.4
+I4,5,4.6,5.0,5.4,4.6,5.0,5.4
+I5,7,6.6,7.0,7.4,2.6,3.0,3.4
+I6,4,3.6,4.0,4.4,5.6,6.0,6.4
+I7,8,7.6,8.0,8.4,1.6,2.0,2.4
+I8,3,2.6,3.0,3.4,6.6,7.0,7.4
+I9,9,9.0,9.0,9.0,1.0,1.0,1.0
