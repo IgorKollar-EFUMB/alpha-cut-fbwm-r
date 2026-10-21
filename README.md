@@ -185,6 +185,8 @@ criterion and these exact seven column names:
 | `others_to_worst_modal` | Modal value of that comparison. |
 | `others_to_worst_upper` | Upper endpoint of that comparison. |
 
+Comparisons of input data reflect experts’ assessments of relative importance within the specific area of indicator analysis; they are not weights assigned to criteria. Each triangular fuzzy number represents a decision-maker’s assessment within the comparison ‘best versus the others’ or ‘the others to the worst’. The resulting normalised weights are obtained by optimising and subsequently normalising the midpoints of the GMIR intervals. Each normalised weight represents the criterion’s share of the overall importance within a specific set of criteria, and the sum of these weights is equal to 1. For example, a normalised weight of 0.30 assigns this criterion 30% of the overall importance within the evaluation of the given set of criteria.
+
 The input template is:
 
 ```csv
@@ -290,8 +292,7 @@ colSums(is.na(my_input))
 ```
 
 With the unchanged template, the weights are the same as in section 4.
-Validation does not calculate a consistency assessment. No Classical BWM
-consistency warning or threshold is applied to these fuzzy inputs.
+The current implementation does not calculate the consistency index (CI) or the consistency ratio (CR) for the  $\alpha$ cut – BWM. The methodological aim of our future research is to develop a theoretically grounded framework for assessing consistency, including the formal derivation and validation of appropriate measures of CI and CR, and the investigation of appropriate acceptance thresholds.
 
 For users who prefer calling the functions directly, the same workflow is:
 
@@ -306,6 +307,8 @@ export_acfbwm_result(result, file.path("output", "my_acfbwm_analysis"))
 ```
 
 ### 5.4 Alpha-cut FBWM results and interpretation
+
+The output distinguishes between a representative triangular fuzzy weight, an interval of defuzzified weights, and a final normalised weight for each criterion. The interval bounds are obtained by separately minimising and maximising the GMIR value under the model constraints at the common permitted deviation. The final normalised weights are calculated from the interval midpoints, rather than from the defuzzified values of the representative fuzzy solution.
 
 | `Column in weights.csv` | Meaning |
 |---|---|
@@ -347,8 +350,7 @@ p_j=\frac{m_j}{\sum_i m_i}.
 
 Here $m_j$ is `interval_midpoint` and $p_j$ is `normalized_weight`.
 Normalization is applied to the midpoints, not to the representative GMIR values.
-Ranking uses full-precision normalized weights; exact ties use minimum ranks
-(1, 1, 3), while near ties can still receive different ranks.
+Interpreting the intervals after normalisation: the bounds lower_bound and upper_bound refer to GMIR weights before midpoint normalisation. Dividing each interval midpoint by the sum of all midpoints produces the final normalized_weight vector, whose components sum to one. This rescaling does not preserve membership in the original intervals, so a normalised weight should not be assumed to lie within its corresponding GMIR interval. The intervals are optimisation ranges, not statistical confidence intervals.
 
 ## Understanding the alpha-cut model, K and numerical precision
 
