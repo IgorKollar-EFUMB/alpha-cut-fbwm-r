@@ -64,7 +64,11 @@ report_acfbwm_result <- function(result) {
   print(result[c("model_version", "parameters", "max_input_spread", "k", "mesh_size", "ea_upper_bound", "epsilon", "epsilon_lower_bound", "epsilon_search_gap",
                  "epsilon_tolerance_met", "epsilon_search_status", "eta_star",
                  "eta_star_alpha", "eta_star_relation", "solver_status_message")])
-  print(result$ranking, digits = 8, row.names = FALSE)
+  display <- result$ranking
+  display$weight_percent <- formatC(display$weight_percent, format = "f", digits = 2)
+  print(display, digits = 8, row.names = FALSE)
+  cat("Sum of percentage weights: ",
+      formatC(sum(result$weights$weight_percent), format = "f", digits = 2), "%\n", sep = "")
   cat("Sum of normalized midpoint weights: ", sum(result$weights$normalized_weight), "\n")
   cat("Discretization and model fit do not establish judgment consistency.\n")
   cat("No input- or output-based CI/CR is calculated. See README.md.\n")

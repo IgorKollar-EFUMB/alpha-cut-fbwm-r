@@ -140,13 +140,13 @@ results and exports them to `output/example`.
 The unchanged example should give the following normalized weights up to
 numerical rounding:
 
-| Criterion | Normalized weight | Rank |
-|---|---:|---:|
-| C1 | 0.38509704 | 1 |
-| C2 | 0.25277285 | 2 |
-| C3 | 0.19303104 | 3 |
-| C4 | 0.10454251 | 4 |
-| C5 | 0.06455656 | 5 |
+| Criterion | Average weight | Rank | Weight in % | Lower bound | Upper bound
+|---|---:|---:|---:|---:|---:|
+| C1 | 0.38509704 | 1 | 38.51 | 0.348377507 | 0.426261831
+| C2 | 0.25277285 | 2 | 25.28 | 0.195874562 | 0.312588951
+| C3 | 0.19303104 | 3 | 19.30 | 0.173568372 | 0.214721901
+| C4 | 0.10454251 | 4 | 10.45 | 0.074003602 | 0.136288173
+| C5 | 0.06455656 | 5 | 6.46 | 0.058282303 | 0.071575999
 
 Their sum is 1. In the tested environment, `epsilon` was approximately
 1.040271, `epsilon_tolerance_met` was `TRUE`, `max_input_spread` was 0.4,
@@ -319,6 +319,7 @@ The output distinguishes between a representative triangular fuzzy weight, an in
 | `upper_bound` | Maximum GMIR weight for this criterion over the bounds model |
 | `interval_midpoint` | (lower_bound + upper_bound)/2 |
 | `normalized_weight` | interval_midpoint divided by the sum of all interval midpoints |
+| `weight_percent` | Final normalized weights expressed in percent with two decimals; largest-remainder allocation preserves a total of 100.00% |
 | rank | Descending normalized_weight; ties share the minimum rank |
 
 The representative fuzzy solution may be nonunique and can vary with solver
@@ -328,6 +329,30 @@ Each criterion's interval endpoints are optimized separately; their endpoint
 vectors need not form one jointly feasible weight vector.
 Interval midpoints need not sum to 1. Their normalized vector is a reporting
 choice and is not asserted to be an optimal triangular solution.
+
+### Percentage weights for practical use
+
+`result$weights$weight_percent` and `result$ranking$weight_percent` contain numeric
+percentages with two decimal places, summing to **100.00%**. Divide these values
+by 100 if you need rounded proportions summing to one. The original
+`normalized_weight` remains available at full precision; `rank` is still based
+on that original weight, even when displayed percentages tie.
+
+The largest remainder method allocates 10,000 integer units, each worth 0.01
+percentage point. It multiplies the normalized weights by 10,000, takes the
+floor of each quota, and assigns the remaining units to the largest fractional
+remainders. Equal remainders are resolved by the original input CSV row order.
+A temporary normalization absorbs floating-point drift without changing the
+stored normalized weights. The integer allocation totals exactly 10,000;
+checks of floating-point percentage sums use a small numerical tolerance.
+This is presentation rounding, not a change to the ACFBWM optimization,
+interval bounds, epsilon search or criterion ranks.
+
+The column is included in console reports, `weights.csv`, `ranking.csv`,
+`result.rds`, and the article tables and combined weight export. Console and
+manuscript-ready tables show two decimal places; numeric CSV readers may omit
+trailing zeros. 
+
 Use normalized_weight for a final normalized weighting vector. Use
 interval_midpoint when comparing with the original article's "Average".
 Do not interpret normalized_weight as necessarily lying within its unnormalized

@@ -121,6 +121,18 @@ solve_acfbwm <- function(
     ,
     drop = FALSE
   ]
+  # Largest remainder allocation: 10,000 units of 0.01 percentage point.
+  # Normalize only the temporary allocation vector to absorb floating-point drift.
+  quota <- 10000 * (weights$normalized_weight / sum(weights$normalized_weight))
+  units <- floor(quota)
+  remaining <- as.integer(round(10000 - sum(units)))
+  stopifnot(remaining >= 0L, remaining <= length(units))
+  if (remaining > 0L) {
+    # Equal remainders are resolved by the original CSV row order.
+    recipients <- order(-(quota - units), seq_along(units))[seq_len(remaining)]
+    units[recipients] <- units[recipients] + 1
+  }
+  weights$weight_percent <- units / 100
   weights$rank <- rank(-weights$normalized_weight, ties.method = "min")
 
   ranking <- weights[order(weights$rank, weights$criterion), , drop = FALSE]

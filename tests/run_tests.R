@@ -74,6 +74,18 @@
   check(identical(as.character(result$ranking$criterion),expected_input$criterion),
         "The reported ranking differs from the documented reference.")
 
+  expected_percent <- c(38.51,25.28,19.30,10.45,6.46)
+  check(is.numeric(w$weight_percent) &&
+        all(abs(w$weight_percent-expected_percent)<1e-10),
+        "Percentage weights differ from the largest-remainder reference.")
+  check(all(w$weight_percent>=0) &&
+        abs(sum(w$weight_percent)-100)<1e-10 &&
+        all(abs(100*w$weight_percent-round(100*w$weight_percent))<1e-8),
+        "Percentage weights must have two decimals and sum to 100.")
+  check(isTRUE(all.equal(result$ranking$weight_percent,
+                        w$weight_percent,tolerance=1e-12)),
+        "Ranking percentage weights differ from the reference.")
+
   cat("Checking console reporting and all exports...\n")
   out <- tempfile("acfbwm_installation_")
   on.exit(unlink(out,recursive=TRUE),add=TRUE)
@@ -93,6 +105,12 @@
   check(isTRUE(all.equal(saved_weights$normalized_weight,
                         result$weights$normalized_weight,tolerance=1e-12)),
         "Exported weights differ from calculated weights.")
+  for (file in c("weights.csv","ranking.csv")) {
+    exported <- read.csv(file.path(out,file),stringsAsFactors=FALSE)
+    check(isTRUE(all.equal(exported$weight_percent,
+                          expected_percent,tolerance=1e-12)),
+          paste("Percentage export differs from the reference:",file))
+  }
   restored <- readRDS(file.path(out,"result.rds"))
   check(identical(restored,result),"RDS round-trip did not preserve the result.")
   check(length(readLines(file.path(out,"sessionInfo.txt"),warn=FALSE))>0L,

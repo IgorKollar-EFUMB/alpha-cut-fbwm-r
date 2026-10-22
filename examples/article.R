@@ -30,14 +30,14 @@ for (job in jobs) {
     rows[[length(rows)+1L]] <- data.frame(dataset=job$name,k=kk,
       criterion=w$criterion,lower_bound=w$lower_bound,upper_bound=w$upper_bound,
       interval_midpoint=w$interval_midpoint,normalized_weight=w$normalized_weight,
-      rank=w$rank)
+      weight_percent=w$weight_percent, rank=w$rank)
     # Decimal strings preserve trailing zeros in manuscript-ready tables.
     table <- data.frame(criterion=w$criterion,
       lower_bound=formatC(w$lower_bound,format="f",digits=job$digits),
       upper_bound=formatC(w$upper_bound,format="f",digits=job$digits),
       interval_midpoint=formatC(w$interval_midpoint,format="f",digits=job$digits),
       normalized_weight=formatC(w$normalized_weight,format="f",digits=job$digits),
-      rank=w$rank)
+      weight_percent=formatC(w$weight_percent,format="f",digits=2L), rank=w$rank)
     write.csv(table,file.path(output_dir,job$name,paste0("k",kk),"table_rounded.csv"),
               row.names=FALSE)
     print(table,row.names=FALSE)
